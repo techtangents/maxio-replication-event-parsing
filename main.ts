@@ -1,5 +1,5 @@
 import * as maxio from '@maxio-com/advanced-billing-sdk';
-import {EventsController, EventType} from "@maxio-com/advanced-billing-sdk";
+import {EventKey, EventsController} from '@maxio-com/advanced-billing-sdk';
 
 const main = async () => {
     const subdomain = process.env.SUBDOMAIN!;
@@ -8,12 +8,13 @@ const main = async () => {
         basicAuthCredentials: {
             username: apikey,
             password: 'x'
-        }, subdomain
+        },
+        site: subdomain
     });
 
     const events = new EventsController(client);
     const results = await events.listEvents({
-        filter: [ EventType.SignupSuccess ],
+        filter: [ EventKey.SignupSuccess ],
         perPage: 10
     });
     console.log(results.result);
